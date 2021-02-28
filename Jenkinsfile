@@ -34,5 +34,13 @@ node {
         }
     }
 
+    stage('Sonar') {
+        if (isUnix()) {
+            sh "yarn run sonar"
+        } else {
+            bat(/yarn run sonar/)
+        }
+    }
+
 
 }
