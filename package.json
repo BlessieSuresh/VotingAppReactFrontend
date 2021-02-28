@@ -1,5 +1,10 @@
 {
   "name": "votingapp_react_frontend",
+  "jest": {
+    "testMatch": [
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ]
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {
