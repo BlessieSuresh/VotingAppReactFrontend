@@ -11,9 +11,9 @@ node {
 
     stage('install tools') {
         if (isUnix()) {
-            sh "npm install"
+            sh "yarn install"
         } else {
-            bat(/npm install/)
+            bat(/yarn install/)
         }
     }
 
