@@ -25,11 +25,12 @@ node {
         }
     }
 
+    //https://github.com/facebook/jest/issues/7441
     stage('Testing') {
         if (isUnix()) {
-            sh "yarn run test"
+            sh "yarn run test --watchAll=false"
         } else {
-            bat(/yarn test --watchAll=false/)
+            bat(/yarn run test --watchAll=false/)
         }
     }
 
