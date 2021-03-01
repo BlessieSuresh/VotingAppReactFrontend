@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testExecutions version="1">
-    <file path="C:\Users\sures\Documents\B4_cours\Tom_Utilisation_de_IDE\refined_votingapp_react\votingapp_react_frontend\src\__tests__\App.test.js">
-        <testCase name="renders learn react link" duration="0"/>
-        <testCase name="renders learn react link1" duration="0"/>
-        <testCase name="renders learn react link2a" duration="0"/>
-    </file>
-</testExecutions>
