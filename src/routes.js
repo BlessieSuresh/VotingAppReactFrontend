@@ -13,7 +13,7 @@ const routes = [
     children: [
       { path: 'login', element: <LoginView /> },
       { path: '404', element: <NotFoundView /> },
-      { path: '/', element: <ProductListView /> },
+      { path: '/', element: <LoginView /> },
       { path: 'products', element: <ProductListView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import Link from '@material-ui/core/Link';
 // import * as Yup from 'yup';
@@ -31,6 +31,23 @@ function Copyright() {
   );
 }
 
+function handleResponse(response) {
+  return response.text().then((text) => {
+    const data = text && JSON.parse(text);
+    if (!response.ok) {
+      if (response.status !== 200) {
+        // logout();
+        // location.reload(true);
+      }
+
+      const error = (data && data.message) || response.statusText;
+      return Promise.reject(error);
+    }
+
+    return data;
+  });
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -43,37 +60,23 @@ const useStyles = makeStyles((theme) => ({
 const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  // const url1 = 'http://127.0.0.1:2345';
+  const backendurl = 'http://127.0.0.1:8081/api/login/authenticate';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const emailOnChange = (e) => {
     setEmail(e.target.value);
-    console.log(e.target.value);
   };
 
   const passwordOnChange = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // const result = await axios(url1);
-      /* const chatData = result.data;
-      const values = [];
-      for (let ln = 0; ln < chatData.length; ln++) {
-        const item1 = {
-          id: ln, server: url1
-        };
-        values.push(item1);
-      } */
-      // setChats(values);
-      console.log(email);
-      console.log(password);
-    };
-    fetchData();
-  }, []);
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  };
 
   return (
     <Page
@@ -92,8 +95,21 @@ const LoginView = () => {
               email: '',
               password: ''
             }}
-            onSubmit={() => {
-              navigate('/products', { replace: true });
+            onSubmit={async () => {
+              fetch(backendurl, requestOptions)
+                .then(handleResponse)
+                .then((user) => {
+                  // login successful if there's a user in the response
+                  if (user) {
+                    // store user details and basic auth credentials in local storage
+                    // to keep user logged in between page refreshes
+                    user.authdata = window.btoa(`${email}:${password}`);
+                    localStorage.setItem('user', JSON.stringify(user));
+                    navigate('/products', { replace: true });
+                  } else {
+                    navigate('/login', { replace: true });
+                  }
+                });
             }}
           >
             {({
