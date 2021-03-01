@@ -14,6 +14,7 @@ const routes = [
       { path: 'login', element: <LoginView /> },
       { path: '404', element: <NotFoundView /> },
       { path: '/', element: <ProductListView /> },
+      { path: 'products', element: <ProductListView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   }

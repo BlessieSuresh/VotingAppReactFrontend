@@ -49,6 +49,17 @@ const ProductCard = ({ className, product, ...rest }) => {
         >
           {product.title}
         </Typography>
+        <Typography
+          align="center"
+          color="textPrimary"
+          gutterBottom
+          variant="h4"
+        >
+          {product.totalVotes}
+          {' '}
+          {' '}
+          votes
+        </Typography>
 
       </CardContent>
       <Box flexGrow={1} />

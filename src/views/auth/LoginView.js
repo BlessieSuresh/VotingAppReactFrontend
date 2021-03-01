@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import Link from '@material-ui/core/Link';
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 import { Formik } from 'formik';
+// import axios from 'axios';
 import {
   Box,
   Button,
@@ -42,6 +43,37 @@ const useStyles = makeStyles((theme) => ({
 const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  // const url1 = 'http://127.0.0.1:2345';
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const emailOnChange = (e) => {
+    setEmail(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const passwordOnChange = (e) => {
+    setPassword(e.target.value);
+    console.log(e.target.value);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // const result = await axios(url1);
+      /* const chatData = result.data;
+      const values = [];
+      for (let ln = 0; ln < chatData.length; ln++) {
+        const item1 = {
+          id: ln, server: url1
+        };
+        values.push(item1);
+      } */
+      // setChats(values);
+      console.log(email);
+      console.log(password);
+    };
+    fetchData();
+  }, []);
 
   return (
     <Page
@@ -60,22 +92,16 @@ const LoginView = () => {
               email: '',
               password: ''
             }}
-            validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
-            })}
             onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+              navigate('/products', { replace: true });
             }}
           >
             {({
               errors,
               handleBlur,
-              handleChange,
               handleSubmit,
               isSubmitting,
-              touched,
-              values
+              touched
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box mb={3} align="center">
@@ -98,9 +124,9 @@ const LoginView = () => {
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  onChange={emailOnChange}
                   type="email"
-                  value={values.email}
+                  value={email}
                   variant="outlined"
                 />
                 <TextField
@@ -111,9 +137,9 @@ const LoginView = () => {
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  onChange={passwordOnChange}
                   type="password"
-                  value={values.password}
+                  value={password}
                   variant="outlined"
                 />
                 <Box my={2}>
