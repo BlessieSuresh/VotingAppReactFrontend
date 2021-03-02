@@ -84,6 +84,12 @@ const ProductCard = ({ className, product, ...rest }) => {
               defaultValue={1}
               max={1}
               onChange={(event, newValue) => {
+                if (newValue === 1) {
+                  product.totalVotes += 1;
+                } else {
+                  product.totalVotes += -1;
+                }
+
                 setValue(newValue);
               }}
             />
